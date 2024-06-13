@@ -6,6 +6,14 @@ type TextBuffer struct {
 	lines []string
 }
 
+func (b *TextBuffer) GetLines() []string {
+	return b.lines
+}
+
+func NewTextBuffer() *TextBuffer {
+	return &TextBuffer{}
+}
+
 func (b *TextBuffer) Insert(line int, col int, text string) error {
 	if line >= len(b.lines) || line < 0 {
 		return errors.New("Line out of bounds")
@@ -27,4 +35,8 @@ func (b *TextBuffer) Delete(line int, col int, length int) error {
 
 	b.lines[line] = b.lines[line][:col] + b.lines[line][col+length:]
 	return nil
+}
+
+func (b *TextBuffer) Append(text string) {
+	b.lines = append(b.lines, text)
 }
